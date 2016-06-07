@@ -1,10 +1,6 @@
 public class Board{
 
-/*	cette classe va permettre la gestion de board
-	elle va contenir l'array et la position ou nous
-	sommes rendu.
 
-*/
 	public Trous[][] board = new Trous[7][7];
 	public int moveIndex;
 
@@ -22,7 +18,7 @@ public class Board{
 		board[x][y] = trous;
 	}
 
-	public Trous getTrous(int x, int y){
+	public Trous getBitSet(int x, int y){
 	return board[x][y];
 	}
 
@@ -47,10 +43,11 @@ public class Board{
 		}
 	}
 
+	//permet de copier un board
 	public void setAllValues(Board oldBoard){
 	for(int i =0;i<7;i++){
 		for(int j=0;j<7;j++){
-			board.getTrous(i,j).setValue(oldBoard.getTrous(i,j).getValue());	
+			board.getBitSet(i,j).setValue(oldBoard.getBitSet(i,j).getValue());	
 		}
 	}
 	}

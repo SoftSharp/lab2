@@ -9,7 +9,7 @@ public class Table{
 	public Table(BitSet[][] board){
 	this.board = board;
 	FindMoves finder = new FindMoves(board);
-
+	Player player = new Player(board);
 	test(5);
 	}
 

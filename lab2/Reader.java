@@ -12,7 +12,8 @@ public class Reader{
 	readFile();
 	//PrintOut();
 	}
-	
+
+	//met tous les bitset dans le board	
 	public void populate(){
 	for(int i=0;i<7;i++){
 		for(int j = 0;j<7;j++){
@@ -37,11 +38,13 @@ public class Reader{
 
 		while((line = bufferedReader.readLine()) != null) {
 		
-			for(int i=0; i<line.length();i++){	
+			for(int i=0; i<line.length();i++){
+				//indique que ca fait partie du board	
 				if(Character.getNumericValue(line.charAt(i)) != 0){
 					
 					board[j][i].flip(5);
 				}
+				//indique que la position est vide
 				if(Character.getNumericValue(line.charAt(i)) == 2){
 					board[j][i].flip(6);
 				}
