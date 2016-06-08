@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Table{
 
 	public ArrayList<Move> moveList = new ArrayList<Move>();
+	public ArrayList<Integer> moveIndexList = new ArrayList<Integer>();
 	public BitSet[][] board;
 	public static MAXMOVES = 49;
 	//IL FAUT COMPTER LA QUANTITE DE TIGE DANS LE READER
@@ -21,8 +22,9 @@ public class Table{
 	 
 	boolean found = false;
 	
+	int i = 0;	
+
 	do{
-		int i = 0;	
 		while(found == false && i<MAXMOVES) {
 			found = findMove(i);
 			i++;
@@ -31,8 +33,12 @@ public class Table{
 		if(!moveList.isEmpty()&& i==MAXMOVES-1){
 			unPlayMove(moveList.remove(moveList.size()-1));
 			tige++;
+			i = moveIndexList.remove(moveIndexList.size()-1);
 		}
-	}while(!moveList.isEmpty());
+		else{ 
+			i = 0;
+		}
+	}while(!moveList.isEmpty() || tige == 1);
 	}
 	
 
