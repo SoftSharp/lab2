@@ -40,7 +40,7 @@ public class Reader{
 		
 			for(int i=0; i<line.length();i++){
 				//indique que ca fait partie du board	
-				if(Character.getNumericValue(line.charAt(i)) != 0){
+				if(Character.getNumericValue(line.charAt(i)) == 1){
 					
 					board[j][i].flip(5);
 				}

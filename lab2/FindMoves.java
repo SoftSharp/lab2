@@ -1,4 +1,5 @@
 import java.util.BitSet;
+import java.util.ArrayList;
 
 public class FindMoves{
 
@@ -13,7 +14,6 @@ public class FindMoves{
 	public FindMoves(BitSet[][] board){
 	this.board = board;
 	makeBitSetComp();
-	canItMove();
 	}
 
 
@@ -27,31 +27,36 @@ public class FindMoves{
 	empty.flip(1,3);
 	}
 
-	//Passe chaque position de l'array et regarde si la
-	//tige peut aller dans une direction
-	public void canItMove(){
-	for(int i=0;i<7;i++){
-		for(int j=0;j<7;j++){
-			//check haut
-			if(check(i,j,0,-1)==true){
-				board[i][j].flip(1);	
-			}
-			//check bas
-			if(check(i,j,0,1)==true){
-				board[i][j].flip(2);	
-			}
-			//check gauche
-			if(check(i,j,-1,0)==true){
-				board[i][j].flip(3);	
-			}
-			//check droit
-			if(check(i,j,1,0)==true){
-				board[i][j].flip(4);	
-			}
+
+	//OMG LES 4 PREMIER BIT SERVENT A RIEN FUCKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+	public Move canItMove(int i, int j){
+
+	Move move = null;
+
+		//check haut
+		if(check(i,j,0,-1)==true){
+			move = new move(new Point(i,j),new Point(i,j-1),new Point(i,j-2)); 
+			check=true;
 		}
-	}
-	
+		//check bas
+		if(check(i,j,0,1)==true){
+			move = new move(new Point(i,j),new Point(i,j+1),new Point(i,j+2)); 
+			check=true;
+		}
+		//check gauche
+		if(check(i,j,-1,0)==true){
+			move = new move(new Point(i,j),new Point(i-1,j),new Point(i-2,j)); 
+			check=true;
+		}
+		//check droit
+		if(check(i,j,1,0)==true){
+			move = new move(new Point(i,j),new Point(i+1,j),new Point(i+2,j)); 
+			check=true;
+		}
+	return move;
         }
+
+
 
 
 	//regarde s'il y a une tige a cote (pour "manger" la tige)
