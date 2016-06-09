@@ -1,87 +1,116 @@
 import java.util.BitSet;
 import java.util.ArrayList;
-
+import java.awt.Point;
+import java.util.Scanner;
 public class Table{
 
 	public ArrayList<Move> moveList = new ArrayList<Move>();
-	public ArrayList<Integer> moveIndexList = new ArrayList<Integer>();
+	public ArrayList<Move> playedMoves = new ArrayList<Move>();
 	public BitSet[][] board;
-	public static MAXMOVES = 49;
-	//IL FAUT COMPTER LA QUANTITE DE TIGE DANS LE READER
+	public FindMoves moveFinder;
+	
 	public int Tige = 0;
 
 	public Table(BitSet[][] board){
 	this.board = board;
-	FindMoves moveFinder = new FindMoves(board);
-	
-	test(5);
+	this.moveFinder = new FindMoves(board);
+	startGame();	
 	}
 
 
 	public void startGame(){
 	 
-	boolean found = false;
-	
-	int i = 0;	
+	boolean endGame = false;
 
-	do{
-		while(found == false && i<MAXMOVES) {
-			found = findMove(i);
-			i++;
-			tige--;
-		}
-		if(!moveList.isEmpty()&& i==MAXMOVES-1){
-			unPlayMove(moveList.remove(moveList.size()-1));
-			tige++;
-			i = moveIndexList.remove(moveIndexList.size()-1);
-		}
-		else{ 
-			i = 0;
-		}
-	}while(!moveList.isEmpty() || tige == 1);
+	for(int i = 0;i<2;i++){
+	
+	getBoardStatus();	
+	
+	playedMoves.add(moveList.get(0));
+	endGame = play(moveList.get(0).doMove());
+	}
+
 	}
 	
-
-	public boolean findMove(int i){
-
-	boolean found=false;	
+	public void getBoardStatus(){
 	
-	int x = i%7;
-	int y = i/7;	
-
-	if(checkforTige(x,y)){
-		if(moveFinder.canItMove(x,y) != null){
-			moveList.add(moveFinder.canItMove(x,y));
-			playMove(moveFinder.canItMove(x,y));
-			found = true;
+	moveList.clear();
+	
+	for(int i=0;i<7;i++){
+		for(int j=0;j<7;j++){
+			moveFinder.canItMove(i,j,moveList);
+			
 		}
 	}
-	return found;
 	}
 
-	public void playMove(Move move){
-
-		flip_Tige(move.getInitialPos());
-		eaten_Tige(move.getRemovedPos());
-		flip_Tige(move.getFinalPos()):
+	public int getTotalTige(){
+	
+	int totalTige=0;	
+	
+	for(int i=0;i<7;i++){
+		for(int j=0;j<7;j++){
+			if(board[i][j].get(5) == true){
+				totalTige++;
+			}
+		}
+	}
+	return totalTige;
 	}
 
-	public void unPlayMove(Move move){
-		flip_Tige(move.getInitialPos());
-		puked_Tige(move.getRemovedPos());
-		flip_Tige(move.getFinalPos()):
+
+	public boolean play(Point[] move){
+
+		flip_tige(move[0]);
+		flip_tige(move[1]);
+		flip_tige(move[2]);
+
+	printTable();
+
+	return true;
+
 	}
+
+/*
+	public boolean play(Point[] move){
+	
+		System.out.println("ENTERED");		
+
+		flip_tige(move[0]);
+		flip_tige(move[1]);
+		flip_tige(move[2]);
+
+		
+
+		boolean completed = false;
+		int totalTige = getTotalTige();
+
+		getBoardStatus();
+		Move trialMove = playedMoves.get(playedMoves.size()-1);
+		
+		if(totalTige == 1){
+			completed = true;
+		}
+		else if(moveList.size() != 0){
+			//S'assure que pour un Xieme passage, on prenne le Xieme move
+			int index = trialMove.getIndex();
+			moveList.get(index).setIndex(index);
+
+			//Met un nouveaux move comme played et joue le move
+			playedMoves.remove(trialMove);
+			playedMoves.add(moveList.get(index));	
+			completed = play(trialMove.doMove());
+		}
+		else{
+			completed = play(trialMove.undoMove());
+		}
+	printTable();
+	return completed;
+	}
+*/
 
 	public void flip_tige(Point point){
-		board[point.getX()][point.getY()].flip(5,7);
-	}
-
-	public void eaten_Tige(Point point){
-		board[point.getX()][point.getY()].flip(6);
-	}
-	
-	public void puked_Tige(Point point){
-		board[point.getX()][point.getY()].flip(5);
+		board[(int)point.getX()][(int)point.getY()].flip(5,7);
 	}
 
 	public boolean checkForTige(int x, int y){
@@ -96,15 +125,32 @@ public class Table{
 
 
 
-	public void test(int k){
-	
-	for(int i =0;i<7;i++){
+	public void printTable(){
+
+	for(int i=0;i<7;i++){
 		for(int j=0;j<7;j++){
-			System.out.print(board[i][j].get(k));
+			if(board[i][j].get(5)==true){
+				System.out.print("1");
+			}
+			else if(board[i][j].get(6)==true){
+				System.out.print("2");
+			}
+			else{
+				System.out.print("0");
+			}
 		}
 		System.out.println("");
 	}
+    	Scanner sc = new Scanner(System.in);
+     	System.out.println("ENTER 1 to quit");
+	int i = sc.nextInt();
+	
+	if(i == 1){
+		System.exit(1);
 	}
+	}	
+
+
 }
 
 

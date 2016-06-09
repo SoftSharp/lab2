@@ -39,7 +39,7 @@ public class Reader{
 		while((line = bufferedReader.readLine()) != null) {
 		
 			for(int i=0; i<line.length();i++){
-				//indique que ca fait partie du board	
+				//indique que c'est une tige	
 				if(Character.getNumericValue(line.charAt(i)) == 1){
 					
 					board[j][i].flip(5);

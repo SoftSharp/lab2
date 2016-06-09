@@ -1,5 +1,6 @@
 import java.util.BitSet;
 import java.util.ArrayList;
+import java.awt.Point;
 
 public class FindMoves{
 
@@ -8,52 +9,32 @@ public class FindMoves{
 	/*devrait etre des constante, sont utiliser pour savoir
 	si le bitset represente un trou vide ou une tige
 	*/
-	public BitSet tige;
-	public BitSet empty;
 
 	public FindMoves(BitSet[][] board){
 	this.board = board;
-	makeBitSetComp();
-	}
-
-
-	//Fabrique les bitset tige et empty
-	public void makeBitSetComp(){
-	
-	tige = new BitSet(2);
-	tige.flip(1);
-
-	empty = new BitSet(2);
-	empty.flip(1,3);
 	}
 
 
 	//OMG LES 4 PREMIER BIT SERVENT A RIEN FUCKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-	public Move canItMove(int i, int j){
+	public void canItMove(int i, int j, ArrayList<Move> moveList){
 
-	Move move = null;
 
 		//check haut
 		if(check(i,j,0,-1)==true){
-			move = new move(new Point(i,j),new Point(i,j-1),new Point(i,j-2)); 
-			check=true;
+			moveList.add(new Move(new Point(i,j),new Point(i,j-1),new Point(i,j-2))); 
 		}
 		//check bas
 		if(check(i,j,0,1)==true){
-			move = new move(new Point(i,j),new Point(i,j+1),new Point(i,j+2)); 
-			check=true;
+			moveList.add(new Move(new Point(i,j),new Point(i,j+1),new Point(i,j+2))); 
 		}
 		//check gauche
 		if(check(i,j,-1,0)==true){
-			move = new move(new Point(i,j),new Point(i-1,j),new Point(i-2,j)); 
-			check=true;
+			moveList.add(new Move(new Point(i,j),new Point(i-1,j),new Point(i-2,j))); 
 		}
 		//check droit
 		if(check(i,j,1,0)==true){
-			move = new move(new Point(i,j),new Point(i+1,j),new Point(i+2,j)); 
-			check=true;
+			moveList.add(new Move(new Point(i,j),new Point(i+1,j),new Point(i+2,j))); 
 		}
-	return move;
         }
 
 
@@ -66,7 +47,7 @@ public class FindMoves{
 	boolean check = false;
 
 	if(isInBounds(x,y,dx,dy)==true){
-		if(board[x+dx][y+dy].get(5,7).equals(tige)  && board[x+(2*dx)][y+(2*dy)].equals(empty)){
+		if((board[x+dx][y+dy].get(5)==true)  && (board[x+(2*dx)][y+(2*dy)].get(6) == true)){
 			check = true;
 		}
 		else{
@@ -97,6 +78,10 @@ public class FindMoves{
 	}
 
 
+	public String iExist(){
+	String s = "what";
+	return s;
+	}
 }
 
 
