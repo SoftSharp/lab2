@@ -5,25 +5,34 @@ public class Move{
 	Point initialPos;
 	Point finalPos;
 	Point removedPos;
-	int moveIndex = 0;
+	int moveIndex = 1;
 
 	public Move(Point initialPos, Point removedPos, Point finalPos){
 	this.initialPos = initialPos;
 	this.removedPos = removedPos;
 	this.finalPos = finalPos;
+/*
+	System.out.println(initialPos.toString());
+	System.out.println(removedPos.toString());
+	System.out.println(finalPos.toString());
+*/	
 	}
 
 	public Move(){
 	}
 
-	public Point[] doMove(){
-	return (new Point[] {initialPos,finalPos,removedPos});
+	public Move doMove(){
+	return this;
 	
 	}
 
-	public Point[] undoMove(){
+	public Move undoMove(){
 	moveIndex++;
-	return (new Point[]{finalPos, initialPos, removedPos});
+	Point temp = finalPos;
+	finalPos = initialPos;
+	initialPos = temp;
+	
+	return this;
 	}
 
 	public int getIndex(){
