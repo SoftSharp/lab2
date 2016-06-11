@@ -2,7 +2,7 @@ import java.util.BitSet;
 import java.util.ArrayList;
 import java.awt.Point;
 import java.util.Scanner;
-public class Table{
+public class TableShitVersion{
 
 	public ArrayList<Move> moveList = new ArrayList<Move>();
 	public ArrayList<Move> playedMoves = new ArrayList<Move>();
@@ -16,7 +16,7 @@ public class Table{
 	
 	public int Tige = 0;
 
-	public Table(BitSet[][] board){
+	public TableShitVersion(BitSet[][] board){
 	this.board = board;
 	this.moveFinder = new FindMoves(board);
 	startGame();	
@@ -114,7 +114,7 @@ public class Table{
 		//System.out.println("compteur = "+ compteur);
 		
 
-		boolean bad = compareBoards(convertBoard(board));
+		//boolean bad = compareBoards(convertBoard(board));
 
 		//System.out.println(bad);
 
@@ -126,7 +126,7 @@ public class Table{
 			if(totalTige == 1){
 				completed = true;
 			}
-			else if(moveList.size() != 0 && moveList.size() >= index && bad==false){
+			else if(moveList.size() != 0 && moveList.size() >= index /*&& bad==false*/){
 				//S'assure que pour un Xieme passage, on prenne le Xieme move
 
 				//System.out.println("Move index = " +index);
@@ -139,7 +139,7 @@ public class Table{
 			}
 			else{
 				//System.out.println("move UNDONE");
-				storedBadBoards.add(convertBoard(board));
+				//storedBadBoards.add(convertBoard(board));
 				playedMoves.remove(playedMoves.size()-1);
 				completed = play(trialMove.undoMove());
 			}
