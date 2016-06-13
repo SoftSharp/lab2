@@ -35,6 +35,7 @@ public class Table{
 	endGame = play(moveList.get(0).doMove());
 	System.out.println(endGame);
 	System.out.println("nb noeuds = " + compteur);	
+	printMoves();
 	//printTable();
 	}
 	
@@ -108,7 +109,7 @@ public class Table{
 		getBoardStatus();
 	
 
-		//System.out.println("PlayedMoves.size = " + playedMoves.size());
+		System.out.println("PlayedMoves.size = " + playedMoves.size());
 		//System.out.println("moveList.size = " + moveList.size());
 		compteur++;
 		//System.out.println("compteur = "+ compteur);
@@ -222,14 +223,23 @@ public class Table{
 	}	
 
 
+
+	public void printMoves(){
+	
+	System.out.println(playedMoves.size());
+
+	for(int i=0;i<playedMoves.size()-1;i++){
+		Point[] points = playedMoves.get(i).getMove();
+		int x1 = (int) points[0].getY();
+		int y1 = (int)points[0].getX();
+		int x2 = (int)points[1].getY();
+		int y2 = (int)points[1].getX();
+		System.out.println("Tige " + x1+","+y1 + " vers " + x2+","+y2);
+	}
+	}
+
+
 }
-
-
-
-
-
-
-
 
 
 

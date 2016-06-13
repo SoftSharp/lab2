@@ -67,4 +67,8 @@ public class Move{
 	public Point getRemovedPos(){
 	return removedPos;
 	}
+
+	public Point[] getMove(){
+	return new Point[]{initialPos,finalPos};
+	}
 }
