@@ -9,6 +9,8 @@ public class TableShitVersion{
 	public ArrayList<BitSet> storedBadBoards = new ArrayList<BitSet>();
 	public BitSet[][] board;
 	public FindMoves moveFinder;
+	public int width;
+	public int height;
 
 	//for debugging
 	public int compteur;
@@ -16,8 +18,10 @@ public class TableShitVersion{
 	
 	public int Tige = 0;
 
-	public TableShitVersion(BitSet[][] board){
+	public TableShitVersion(BitSet[][] board, int width, int height){
 	this.board = board;
+	this.width = width;
+	this.height = height;
 	this.moveFinder = new FindMoves(board);
 	startGame();	
 	}
@@ -35,15 +39,14 @@ public class TableShitVersion{
 	endGame = play(moveList.get(0).doMove());
 	System.out.println(endGame);
 	System.out.println("nb noeuds = " + compteur);	
-	//printTable();
 	}
 	
 	public void getBoardStatus(){
 	
 	moveList.clear();
 	
-	for(int i=0;i<7;i++){
-		for(int j=0;j<7;j++){
+	for(int i=0;i<height;i++){
+		for(int j=0;j<width;j++){
 			moveFinder.canItMove(i,j,moveList);
 						
 		}
@@ -54,8 +57,8 @@ public class TableShitVersion{
 	
 	int totalTige=0;	
 	
-	for(int i=0;i<7;i++){
-		for(int j=0;j<7;j++){
+	for(int i=0;i<height;i++){
+		for(int j=0;j<width;j++){
 			if(board[i][j].get(5) == true){
 				totalTige++;
 			}
@@ -108,7 +111,6 @@ public class TableShitVersion{
 		getBoardStatus();
 	
 
-		//System.out.println("PlayedMoves.size = " + playedMoves.size());
 		//System.out.println("moveList.size = " + moveList.size());
 		compteur++;
 		//System.out.println("compteur = "+ compteur);
@@ -168,8 +170,8 @@ public class TableShitVersion{
 	BitSet convert= new BitSet();
 
 
-	for(int i=0;i<7;i++){
-		for(int j=0;j<7;j++){
+	for(int i=0;i<height;i++){
+		for(int j=0;j<width;j++){
 			if(board[i][j].get(6)==true){
 				convert.set(i*j);
 			}
@@ -197,8 +199,8 @@ public class TableShitVersion{
 
 	public void printTable(){
 
-	for(int i=0;i<7;i++){
-		for(int j=0;j<7;j++){
+	for(int i=0;i<height;i++){
+		for(int j=0;j<width;j++){
 			if(board[i][j].get(5)==true){
 				System.out.print("1");
 			}
@@ -222,14 +224,23 @@ public class TableShitVersion{
 	}	
 
 
+
+	public void printMoves(){
+	
+	System.out.println(playedMoves.size());
+
+	for(int i=0;i<playedMoves.size()-1;i++){
+		Point[] points = playedMoves.get(i).getMove();
+		int x1 = (int) points[0].getY();
+		int y1 = (int)points[0].getX();
+		int x2 = (int)points[1].getY();
+		int y2 = (int)points[1].getX();
+		System.out.println("Tige " + x1+","+y1 + " vers " + x2+","+y2);
+	}
+	}
+
+
 }
-
-
-
-
-
-
-
 
 
 

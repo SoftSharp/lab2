@@ -9,6 +9,8 @@ public class Table{
 	public ArrayList<BitSet> storedBadBoards = new ArrayList<BitSet>();
 	public BitSet[][] board;
 	public FindMoves moveFinder;
+	public int width;
+	public int height;
 
 	//for debugging
 	public int compteur;
@@ -16,8 +18,10 @@ public class Table{
 	
 	public int Tige = 0;
 
-	public Table(BitSet[][] board){
+	public Table(BitSet[][] board, int width, int height){
 	this.board = board;
+	this.width = width;
+	this.height = height;
 	this.moveFinder = new FindMoves(board);
 	startGame();	
 	}
@@ -35,16 +39,14 @@ public class Table{
 	endGame = play(moveList.get(0).doMove());
 	System.out.println(endGame);
 	System.out.println("nb noeuds = " + compteur);	
-	printMoves();
-	//printTable();
 	}
 	
 	public void getBoardStatus(){
 	
 	moveList.clear();
 	
-	for(int i=0;i<7;i++){
-		for(int j=0;j<7;j++){
+	for(int i=0;i<height;i++){
+		for(int j=0;j<width;j++){
 			moveFinder.canItMove(i,j,moveList);
 						
 		}
@@ -55,8 +57,8 @@ public class Table{
 	
 	int totalTige=0;	
 	
-	for(int i=0;i<7;i++){
-		for(int j=0;j<7;j++){
+	for(int i=0;i<height;i++){
+		for(int j=0;j<width;j++){
 			if(board[i][j].get(5) == true){
 				totalTige++;
 			}
@@ -109,7 +111,6 @@ public class Table{
 		getBoardStatus();
 	
 
-		System.out.println("PlayedMoves.size = " + playedMoves.size());
 		//System.out.println("moveList.size = " + moveList.size());
 		compteur++;
 		//System.out.println("compteur = "+ compteur);
@@ -169,8 +170,8 @@ public class Table{
 	BitSet convert= new BitSet();
 
 
-	for(int i=0;i<7;i++){
-		for(int j=0;j<7;j++){
+	for(int i=0;i<height;i++){
+		for(int j=0;j<width;j++){
 			if(board[i][j].get(6)==true){
 				convert.set(i*j);
 			}
@@ -198,8 +199,8 @@ public class Table{
 
 	public void printTable(){
 
-	for(int i=0;i<7;i++){
-		for(int j=0;j<7;j++){
+	for(int i=0;i<height;i++){
+		for(int j=0;j<width;j++){
 			if(board[i][j].get(5)==true){
 				System.out.print("1");
 			}

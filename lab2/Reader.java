@@ -5,6 +5,8 @@ public class Reader{
 
 	public String fileName;
 	public BitSet[][] board= new BitSet[7][7];
+	public int width;
+	public int height;
 
 	public Reader(String arg){
 	fileName = arg;
@@ -25,6 +27,7 @@ public class Reader{
 	public void readFile(){
 		try{
 
+		height = 0;	
 
 		FileReader fileReader =
 		new FileReader(new File(fileName));
@@ -37,7 +40,9 @@ public class Reader{
 		int j = 0;
 
 		while((line = bufferedReader.readLine()) != null) {
-		
+			if(j == 0){
+				width = line.length();
+			}
 			for(int i=0; i<line.length();i++){
 				//indique que c'est une tige	
 				if(Character.getNumericValue(line.charAt(i)) == 1){
@@ -50,6 +55,7 @@ public class Reader{
 				}
 			}
 			j++;
+			height++;
 		}
 
 		bufferedReader.close();
@@ -62,11 +68,19 @@ public class Reader{
 		catch(IOException ex) {
 			System.out.println("Error reading file '"+ fileName + "'");
 		}
+	System.out.println("height = " +height);
 
 	}
 
 	public BitSet[][] getBoard(){
 	return board;
+	}
+
+	public int getHeight(){
+	return height;
+	}
+	public int getWidth(){
+	return width;
 	}
 
 	public void PrintOut(){

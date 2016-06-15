@@ -1,4 +1,4 @@
-public class InitBoard{
+public class InitBoardShitVersion{
 
 	public int width;
 	public int height;
@@ -14,7 +14,7 @@ public class InitBoard{
  		
 		long start2 = System.nanoTime();       
 
-		Table table = new Table(reader.getBoard(),reader.getWidth(), reader.getHeight());
+		TableShitVersion table = new TableShitVersion(reader.getBoard(),reader.getWidth(), reader.getHeight());
 		
 		long end = System.nanoTime();
                 double time =(end-start)/(Math.pow(10,9));
